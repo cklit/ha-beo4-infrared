@@ -1,11 +1,11 @@
 # Beo4 Infrared for Home Assistant
 
-Sends Bang & Olufsen Beo4 IR commands through Home Assistant's infrared platform. Any emitter on that platform works as long as it can produce a 455 kHz carrier. An ESPHome `ir_rf_proxy` on an ESP32 does.
+Sends Bang & Olufsen Beo4 IR commands through Home Assistant's infrared platform. Any emitter on that platform works as long as it can produce a 455 kHz carrier. This integration is vibe-coded, using the official LG Infrared integration as inspiration: https://github.com/home-assistant/core/tree/dev/homeassistant/components/lg_infrared
 
 ## Requirements
 
 - Home Assistant 2026.9 or later
-- An infrared emitter entity, for example ESPHome `ir_rf_proxy` on an ESP32. The ESP32's RMT peripheral generates 455 kHz fine. ESP8266 is not recommended.
+- An infrared emitter entity, for example ESPHome `ir_rf_proxy` on an ESP32. The ESP32's RMT peripheral generates 455 kHz fine. Currently only tested with this IR Proxy https://www.athom.tech/blank-1/esphome-rf433-ir-remote-controller
 
 ## ESPHome configuration
 
@@ -59,10 +59,6 @@ HACS → three-dot menu → Custom repositories → add this repository as type 
 | 0–9 | 0x00–0x09 |
 
 State is assumed. Nothing is read back from the product.
-
-## Upgrading from 0.1.0
-
-The media player, remote and event entities and the Menu/Text/Light buttons are removed from the entity registry automatically. Buttons that 0.1.0 created disabled (digits, colour keys) are enabled. Buttons you disabled yourself stay disabled. The receiver and default source settings are dropped from the config entry.
 
 ## Protocol
 
