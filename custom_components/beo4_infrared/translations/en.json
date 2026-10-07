@@ -1,0 +1,166 @@
+{
+  "config": {
+    "abort": {
+      "already_configured": "This infrared entity is already used by another Beo4 entry.",
+      "no_infrared_entities": "No infrared emitters or receivers found. Set up an ESPHome IR proxy (or another infrared integration) first."
+    },
+    "error": {
+      "missing_infrared_entity": "Select an infrared emitter, a receiver, or both."
+    },
+    "step": {
+      "user": {
+        "title": "Set up Beo4 Infrared",
+        "description": "The emitter must be able to transmit a 455 kHz carrier. The receiver is optional and needs a 455 kHz demodulator.",
+        "data": {
+          "name": "Name",
+          "infrared_entity_id": "Infrared emitter",
+          "infrared_receiver_entity_id": "Infrared receiver",
+          "default_source": "Default source"
+        },
+        "data_description": {
+          "infrared_entity_id": "Used to send Beo4 commands.",
+          "infrared_receiver_entity_id": "Optional. Decodes Beo4 commands from a real Beo4 into an event entity.",
+          "default_source": "Sent when the media player or remote is turned on. Also sets the starting destination (audio or video)."
+        }
+      }
+    }
+  },
+  "entity": {
+    "button": {
+      "standby": {
+        "name": "Standby"
+      },
+      "up": {
+        "name": "Up"
+      },
+      "down": {
+        "name": "Down"
+      },
+      "left": {
+        "name": "Left"
+      },
+      "right": {
+        "name": "Right"
+      },
+      "go": {
+        "name": "GO"
+      },
+      "stop": {
+        "name": "STOP"
+      },
+      "exit": {
+        "name": "Exit"
+      },
+      "menu": {
+        "name": "Menu"
+      },
+      "text": {
+        "name": "Text"
+      },
+      "light": {
+        "name": "Light"
+      },
+      "red": {
+        "name": "Red"
+      },
+      "green": {
+        "name": "Green"
+      },
+      "yellow": {
+        "name": "Yellow"
+      },
+      "blue": {
+        "name": "Blue"
+      },
+      "digit_0": {
+        "name": "Digit 0"
+      },
+      "digit_1": {
+        "name": "Digit 1"
+      },
+      "digit_2": {
+        "name": "Digit 2"
+      },
+      "digit_3": {
+        "name": "Digit 3"
+      },
+      "digit_4": {
+        "name": "Digit 4"
+      },
+      "digit_5": {
+        "name": "Digit 5"
+      },
+      "digit_6": {
+        "name": "Digit 6"
+      },
+      "digit_7": {
+        "name": "Digit 7"
+      },
+      "digit_8": {
+        "name": "Digit 8"
+      },
+      "digit_9": {
+        "name": "Digit 9"
+      }
+    },
+    "event": {
+      "received_command": {
+        "name": "Received command",
+        "state_attributes": {
+          "event_type": {
+            "state": {
+              "digit_0": "Digit 0",
+              "digit_1": "Digit 1",
+              "digit_2": "Digit 2",
+              "digit_3": "Digit 3",
+              "digit_4": "Digit 4",
+              "digit_5": "Digit 5",
+              "digit_6": "Digit 6",
+              "digit_7": "Digit 7",
+              "digit_8": "Digit 8",
+              "digit_9": "Digit 9",
+              "standby": "Standby",
+              "mute": "Mute",
+              "up": "Up",
+              "down": "Down",
+              "left": "Left",
+              "right": "Right",
+              "go": "GO",
+              "stop": "STOP",
+              "menu": "Menu",
+              "volume_up": "Volume up",
+              "volume_down": "Volume down",
+              "exit": "Exit",
+              "tv": "TV",
+              "radio": "Radio",
+              "v_aux": "V.AUX",
+              "a_aux": "A.AUX",
+              "v_mem": "V.MEM",
+              "dvd": "DVD",
+              "text": "Text",
+              "dtv": "DTV",
+              "pc": "PC",
+              "a_mem": "A.MEM",
+              "cd": "CD",
+              "phono": "Phono",
+              "light": "Light",
+              "yellow": "Yellow",
+              "green": "Green",
+              "blue": "Blue",
+              "red": "Red",
+              "unknown": "Unknown"
+            }
+          }
+        }
+      }
+    }
+  },
+  "exceptions": {
+    "invalid_command": {
+      "message": "Invalid Beo4 command: {value}. Use a key name, a number such as 0x60, or destination:command."
+    },
+    "invalid_destination": {
+      "message": "Invalid Beo4 destination: {value}. Use audio, video, light, all, v_tape or a number."
+    }
+  }
+}
