@@ -1,4 +1,4 @@
-"""Beo4 IR protocol encoder and decoder.
+"""Beo4 IR protocol encoder.
 
 Ported from ESPHome's remote_base/beo4_protocol.cpp.
 
@@ -16,7 +16,6 @@ Carrier is 455 kHz, not the usual 36-40 kHz.
 
 from __future__ import annotations
 
-from itertools import pairwise
 from typing import override
 
 from infrared_protocols.commands import Command
@@ -32,19 +31,10 @@ SYM_ONE = 3
 SYM_STOP = 4
 SYM_START = 5
 
-# 1 link bit + 8 destination bits + 8 command bits
-N_DATA_BITS = 17
-
 # Gap inserted between frames when repeat_count > 0. The original Beo4
 # repeat timing for held keys is not documented here; adjust if a product
 # treats repeats as separate presses.
 REPEAT_GAP_US = 100_000
-
-# Periods shorter than this are treated as receiver glitches (TSOP7000
-# hiccups) and merged into the surrounding symbol, same as ESPHome.
-_GLITCH_US = 1500
-# Max deviation from a whole number of units before a symbol is rejected.
-_TOLERANCE_US = 1000
 
 
 def _symbol(timings: list[int], units: int) -> None:
@@ -75,65 +65,6 @@ def encode_frame(destination: int, command: int) -> list[int]:
     _symbol(timings, SYM_STOP)
     timings.append(CARRIER_US)
     return timings
-
-
-def _symbols_from_timings(timings: list[int]) -> list[int]:
-    """Convert signed raw timings to a list of symbol lengths in units.
-
-    Works on burst-start to burst-start periods so it does not care how the
-    receiver split marks and spaces. Invalid periods become 0.
-    """
-    starts: list[int] = []
-    t = 0
-    prev_positive = False
-    for value in timings:
-        positive = value > 0
-        if positive and not prev_positive:
-            starts.append(t)
-        t += abs(value)
-        prev_positive = positive
-
-    symbols: list[int] = []
-    acc = 0
-    for a, b in pairwise(starts):
-        acc += b - a
-        if acc < _GLITCH_US:
-            continue
-        units = (acc + UNIT_US // 2) // UNIT_US
-        if abs(acc - units * UNIT_US) > _TOLERANCE_US:
-            units = 0
-        symbols.append(units)
-        acc = 0
-    return symbols
-
-
-def decode_frame(timings: list[int]) -> tuple[int, int] | None:
-    """Decode the first valid Beo4 frame. Returns (destination, command)."""
-    symbols = _symbols_from_timings(timings)
-    i = 0
-    while i < len(symbols):
-        if symbols[i] != SYM_START:
-            i += 1
-            continue
-        data = symbols[i + 1 : i + 1 + N_DATA_BITS]
-        stop_idx = i + 1 + N_DATA_BITS
-        if len(data) == N_DATA_BITS and stop_idx < len(symbols):
-            code = 0
-            prev = 0
-            ok = True
-            for sym in data:
-                if sym == SYM_ZERO:
-                    prev = 0
-                elif sym == SYM_ONE:
-                    prev = 1
-                elif sym != SYM_SAME:
-                    ok = False
-                    break
-                code = (code << 1) | prev
-            if ok and symbols[stop_idx] == SYM_STOP:
-                return (code >> 8) & 0xFF, code & 0xFF
-        i += 1
-    return None
 
 
 class Beo4Command(Command):
@@ -168,14 +99,6 @@ class Beo4Command(Command):
             timings.append(-REPEAT_GAP_US)
             timings.extend(frame)
         return timings
-
-    @classmethod
-    def from_raw_timings(cls, timings: list[int]) -> Beo4Command | None:
-        """Decode raw timings into a command, or None."""
-        decoded = decode_frame(timings)
-        if decoded is None:
-            return None
-        return cls(destination=decoded[0], command=decoded[1])
 
     def __repr__(self) -> str:
         """Return a readable representation."""

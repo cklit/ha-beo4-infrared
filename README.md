@@ -1,14 +1,11 @@
 # Beo4 Infrared for Home Assistant
 
-Sends Bang & Olufsen Beo4 IR commands through Home Assistant's infrared platform, the same way the built-in `lg_infrared` integration drives LG TVs. Any emitter on that platform works, as long as it can produce a 455 kHz carrier. An ESPHome `ir_rf_proxy` on an ESP32 does.
-
-Optionally, it decodes Beo4 commands picked up by an infrared receiver into an event entity, so a real Beo4 can trigger automations.
+Sends Bang & Olufsen Beo4 IR commands through Home Assistant's infrared platform. Any emitter on that platform works as long as it can produce a 455 kHz carrier. An ESPHome `ir_rf_proxy` on an ESP32 does.
 
 ## Requirements
 
 - Home Assistant 2026.9 or later
 - An infrared emitter entity, for example ESPHome `ir_rf_proxy` on an ESP32. The ESP32's RMT peripheral generates 455 kHz fine. ESP8266 is not recommended.
-- For receiving: a receiver that demodulates 455 kHz (TSOP7000 or equivalent). A standard 38 kHz receiver will not see Beo4.
 
 ## ESPHome configuration
 
@@ -18,79 +15,58 @@ remote_transmitter:
   pin: GPIOXX
   carrier_duty_percent: 50%
 
-remote_receiver:          # optional
-  id: ir_rx
-  pin:
-    number: GPIOYY
-    inverted: true
-
 infrared:
   - platform: ir_rf_proxy
     name: IR Transmitter
     remote_transmitter_id: ir_tx
-  - platform: ir_rf_proxy  # optional
-    name: IR Receiver
-    receiver_frequency: 455kHz
-    remote_receiver_id: ir_rx
 ```
 
-The carrier frequency is sent with each command, so the transmitter doesn't need to be configured for 455 kHz and can still be used for 38 kHz devices.
+The carrier frequency is sent with each command, so the transmitter doesn't need any 455 kHz setting and can still be used for 38 kHz devices.
 
 ## Installation
 
-HACS → three-dot menu → Custom repositories → add this repository as type Integration. Install, restart, then add **Beo4 Infrared** under Settings → Devices & services.
-
-Setup asks for:
-
-- **Infrared emitter**: used to send commands
-- **Infrared receiver**: optional, creates the event entity
-- **Default source**: sent when the media player or remote is turned on, and decides whether the starting destination is audio or video
+HACS → three-dot menu → Custom repositories → add this repository as type Integration. Install, restart, then add **Beo4 Infrared** under Settings → Devices & services and pick the emitter.
 
 ## Entities
 
-| Entity | What it does |
+**Mode** select (Audio / Video). Decides which link the non-source keys go to. Restored after a restart. Changing it sends nothing.
+
+**Source buttons** always go to their own link and switch the mode, like on a real Beo4:
+
+| Button | Link | Command |
+| --- | --- | --- |
+| TV | Video 0x00 | 0x80 |
+| DVD | Video 0x00 | 0x86 |
+| V.Mem | Video 0x00 | 0x85 |
+| Radio | Audio 0x01 | 0x81 |
+| CD | Audio 0x01 | 0x92 |
+| A.Mem | Audio 0x01 | 0x91 |
+| A.Aux | Audio 0x01 | 0x83 |
+
+**Other buttons** go to the current mode's link:
+
+| Button | Command |
 | --- | --- |
-| Media player | Sources (TV, DTV, DVD, V.AUX, V.MEM, PC, RADIO, CD, PHONO, A.AUX, A.MEM), volume step, mute, standby, GO, STOP, UP/DOWN as next/previous |
-| Buttons | Standby, navigation, GO, STOP, Exit, Menu. Text, Light, colour keys and digits are created disabled. |
-| Remote | `remote.send_command` for any key or raw code |
-| Event | Fires with the key name when a Beo4 frame is received. Attributes: `destination`, `destination_code`, `command_code`. |
+| Standby | 0x0C |
+| Mute | 0x0D |
+| Vol + / Vol - | 0x60 / 0x64 |
+| Go / Stop | 0x35 / 0x36 |
+| Up / Down | 0x1E / 0x1F |
+| Left / Right | 0x32 / 0x34 |
+| List | 0x58 |
+| Exit | 0x7F |
+| Red / Green / Yellow / Blue | 0xD9 / 0xD5 / 0xD4 / 0xD8 |
+| 0–9 | 0x00–0x09 |
 
 State is assumed. Nothing is read back from the product.
 
-### Destination handling
+## Upgrading from 0.1.0
 
-A Beo4 frame carries a destination (audio, video, light, ...) and a command. The integration follows the remote's own behaviour: selecting a source switches the destination, and later keys (volume, GO, digits...) go to that destination. After RADIO, volume goes to audio. After TV, volume goes to video. The last source is restored after a restart.
-
-## remote.send_command
-
-Commands can be key names, hex codes, or `destination:command`:
-
-```yaml
-action: remote.send_command
-target:
-  entity_id: remote.beo4
-data:
-  command:
-    - radio
-    - volume_up
-    - "0x01:0x0d"     # audio, mute
-    - "light:0x9b"
-```
-
-- `device` overrides the destination for keys without a prefix: `audio`, `video`, `light`, `all`, `v_tape`, or a number
-- `num_repeats` and `delay_secs` work as usual
-- `hold_secs` sends repeat frames to simulate holding the key
-
-Key names are the lowercase names in [`codes.py`](custom_components/beo4_infrared/codes.py), for example `standby`, `go`, `volume_down`, `digit_5`, `v_aux`.
+The media player, remote and event entities and the Menu/Text/Light buttons are removed from the entity registry automatically. Buttons that 0.1.0 created disabled (digits, colour keys) are enabled. Buttons you disabled yourself stay disabled. The receiver and default source settings are dropped from the config entry.
 
 ## Protocol
 
-[`protocol.py`](custom_components/beo4_infrared/protocol.py) is a port of ESPHome's `remote_base/beo4_protocol.cpp`. The test suite compares its output against vectors generated by compiling and running ESPHome's encoder. All 65,536 destination/command pairs were checked to match during development.
-
-## Not verified
-
-- The key and destination code tables come from publicly circulated Beo4 code lists. The light, V.TAPE and "all" destinations and a few keys are the least certain. Raw codes always work through the remote entity.
-- Hold/repeat timing. ESPHome's encoder does not send repeat frames, so the 100 ms gap between repeated frames (`REPEAT_GAP_US`) is a guess. If held volume behaves oddly, that constant is the place to look.
+[`protocol.py`](custom_components/beo4_infrared/protocol.py) is a port of ESPHome's `remote_base/beo4_protocol.cpp`. The test suite compares its output against vectors generated by compiling and running ESPHome's encoder. All 65,536 link/command pairs were checked to match during development.
 
 ## Development
 
