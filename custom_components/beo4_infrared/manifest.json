@@ -1,0 +1,13 @@
+{
+  "domain": "beo4_infrared",
+  "name": "Beo4 Infrared",
+  "codeowners": ["@cklit"],
+  "config_flow": true,
+  "dependencies": ["infrared"],
+  "documentation": "https://github.com/cklit/ha-beo4-infrared",
+  "integration_type": "device",
+  "iot_class": "assumed_state",
+  "issue_tracker": "https://github.com/cklit/ha-beo4-infrared/issues",
+  "requirements": [],
+  "version": "0.2.0"
+}

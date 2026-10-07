@@ -1,0 +1,130 @@
+{
+  "config": {
+    "abort": {
+      "already_configured": "This infrared emitter is already used by another Beo4 entry.",
+      "no_infrared_entities": "No infrared emitters found. Set up an ESPHome IR proxy (or another infrared integration) first."
+    },
+    "step": {
+      "user": {
+        "title": "Set up Beo4 Infrared",
+        "description": "The emitter must be able to transmit a 455 kHz carrier, for example an ESPHome ir_rf_proxy on an ESP32.",
+        "data": {
+          "name": "Name",
+          "infrared_entity_id": "Infrared emitter"
+        }
+      }
+    }
+  },
+  "entity": {
+    "button": {
+      "tv": {
+        "name": "TV"
+      },
+      "dvd": {
+        "name": "DVD"
+      },
+      "v_mem": {
+        "name": "V.Mem"
+      },
+      "radio": {
+        "name": "Radio"
+      },
+      "cd": {
+        "name": "CD"
+      },
+      "a_mem": {
+        "name": "A.Mem"
+      },
+      "a_aux": {
+        "name": "A.Aux"
+      },
+      "standby": {
+        "name": "Standby"
+      },
+      "mute": {
+        "name": "Mute"
+      },
+      "volume_up": {
+        "name": "Vol +"
+      },
+      "volume_down": {
+        "name": "Vol -"
+      },
+      "go": {
+        "name": "Go"
+      },
+      "stop": {
+        "name": "Stop"
+      },
+      "up": {
+        "name": "Up"
+      },
+      "down": {
+        "name": "Down"
+      },
+      "left": {
+        "name": "Left"
+      },
+      "right": {
+        "name": "Right"
+      },
+      "list": {
+        "name": "List"
+      },
+      "exit": {
+        "name": "Exit"
+      },
+      "red": {
+        "name": "Red"
+      },
+      "green": {
+        "name": "Green"
+      },
+      "yellow": {
+        "name": "Yellow"
+      },
+      "blue": {
+        "name": "Blue"
+      },
+      "digit_0": {
+        "name": "0"
+      },
+      "digit_1": {
+        "name": "1"
+      },
+      "digit_2": {
+        "name": "2"
+      },
+      "digit_3": {
+        "name": "3"
+      },
+      "digit_4": {
+        "name": "4"
+      },
+      "digit_5": {
+        "name": "5"
+      },
+      "digit_6": {
+        "name": "6"
+      },
+      "digit_7": {
+        "name": "7"
+      },
+      "digit_8": {
+        "name": "8"
+      },
+      "digit_9": {
+        "name": "9"
+      }
+    },
+    "select": {
+      "mode": {
+        "name": "Mode",
+        "state": {
+          "audio": "Audio",
+          "video": "Video"
+        }
+      }
+    }
+  }
+}
