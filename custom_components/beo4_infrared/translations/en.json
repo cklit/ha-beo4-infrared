@@ -23,6 +23,18 @@
       "dvd": {
         "name": "DVD"
       },
+      "dtv": {
+        "name": "DTV"
+      },
+      "v_aux2": {
+        "name": "V.Aux2"
+      },
+      "camera": {
+        "name": "Camera"
+      },
+      "pc": {
+        "name": "PC"
+      },
       "v_mem": {
         "name": "V.Mem"
       },
@@ -37,6 +49,12 @@
       },
       "a_aux": {
         "name": "A.Aux"
+      },
+      "n_radio": {
+        "name": "N.Radio"
+      },
+      "n_music": {
+        "name": "N.Music"
       },
       "standby": {
         "name": "Standby"
@@ -67,9 +85,6 @@
       },
       "right": {
         "name": "Right"
-      },
-      "list": {
-        "name": "List"
       },
       "exit": {
         "name": "Exit"

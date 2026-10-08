@@ -33,7 +33,6 @@ class Beo4Key(IntEnum):
     RIGHT = 0x34
     GO = 0x35
     STOP = 0x36
-    LIST = 0x58
     VOLUME_UP = 0x60
     VOLUME_DOWN = 0x64
     EXIT = 0x7F
@@ -42,8 +41,14 @@ class Beo4Key(IntEnum):
     A_AUX = 0x83
     V_MEM = 0x85
     DVD = 0x86
+    CAMERA = 0x87
+    DTV = 0x8A
+    PC = 0x8B
+    V_AUX2 = 0x8D
     A_MEM = 0x91
     CD = 0x92
+    N_RADIO = 0x93
+    N_MUSIC = 0x94
     RED = 0xD9
     GREEN = 0xD5
     YELLOW = 0xD4
@@ -54,9 +59,15 @@ class Beo4Key(IntEnum):
 SOURCE_KEYS: dict[Beo4Key, Beo4Destination] = {
     Beo4Key.TV: Beo4Destination.VIDEO,
     Beo4Key.DVD: Beo4Destination.VIDEO,
+    Beo4Key.DTV: Beo4Destination.VIDEO,
+    Beo4Key.V_AUX2: Beo4Destination.VIDEO,
+    Beo4Key.CAMERA: Beo4Destination.VIDEO,
+    Beo4Key.PC: Beo4Destination.VIDEO,
     Beo4Key.V_MEM: Beo4Destination.VIDEO,
     Beo4Key.RADIO: Beo4Destination.AUDIO,
     Beo4Key.CD: Beo4Destination.AUDIO,
     Beo4Key.A_MEM: Beo4Destination.AUDIO,
     Beo4Key.A_AUX: Beo4Destination.AUDIO,
+    Beo4Key.N_RADIO: Beo4Destination.AUDIO,
+    Beo4Key.N_MUSIC: Beo4Destination.AUDIO,
 }

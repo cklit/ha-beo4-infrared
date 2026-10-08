@@ -39,11 +39,17 @@ BUTTONS: tuple[Beo4ButtonEntityDescription, ...] = (
     # Sources
     _button(Beo4Key.TV),
     _button(Beo4Key.DVD),
+    _button(Beo4Key.DTV),
+    _button(Beo4Key.V_AUX2),
+    _button(Beo4Key.CAMERA),
+    _button(Beo4Key.PC),
     _button(Beo4Key.V_MEM),
     _button(Beo4Key.RADIO),
     _button(Beo4Key.CD),
     _button(Beo4Key.A_MEM),
     _button(Beo4Key.A_AUX),
+    _button(Beo4Key.N_RADIO),
+    _button(Beo4Key.N_MUSIC),
     # Transport / volume
     _button(Beo4Key.STANDBY),
     _button(Beo4Key.MUTE),
@@ -55,7 +61,6 @@ BUTTONS: tuple[Beo4ButtonEntityDescription, ...] = (
     _button(Beo4Key.DOWN),
     _button(Beo4Key.LEFT),
     _button(Beo4Key.RIGHT),
-    _button(Beo4Key.LIST),
     _button(Beo4Key.EXIT),
     # Colour keys
     _button(Beo4Key.RED),

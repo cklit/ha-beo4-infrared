@@ -37,11 +37,17 @@ HACS → three-dot menu → Custom repositories → add this repository as type 
 | --- | --- | --- |
 | TV | Video 0x00 | 0x80 |
 | DVD | Video 0x00 | 0x86 |
+| DTV (formerly Sat) | Video 0x00 | 0x8A |
+| V.Aux2 | Video 0x00 | 0x8D |
+| Camera | Video 0x00 | 0x87 |
+| PC | Video 0x00 | 0x8B |
 | V.Mem | Video 0x00 | 0x85 |
 | Radio | Audio 0x01 | 0x81 |
 | CD | Audio 0x01 | 0x92 |
 | A.Mem | Audio 0x01 | 0x91 |
 | A.Aux | Audio 0x01 | 0x83 |
+| N.Radio (Phono) | Audio 0x01 | 0x93 |
+| N.Music (A.Tape2) | Audio 0x01 | 0x94 |
 
 **Other buttons** go to the current mode's link:
 
@@ -53,7 +59,6 @@ HACS → three-dot menu → Custom repositories → add this repository as type 
 | Go / Stop | 0x35 / 0x36 |
 | Up / Down | 0x1E / 0x1F |
 | Left / Right | 0x32 / 0x34 |
-| List | 0x58 |
 | Exit | 0x7F |
 | Red / Green / Yellow / Blue | 0xD9 / 0xD5 / 0xD4 / 0xD8 |
 | 0–9 | 0x00–0x09 |
