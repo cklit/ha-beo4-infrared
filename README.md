@@ -9,6 +9,8 @@ Sends Bang & Olufsen Beo4 IR commands through Home Assistant's infrared platform
 
 ## ESPHome configuration
 
+Note! The configuration below is only necessary if you're building your own IR transmitter. The Athom device mentioned above works out of the box with this integration.
+
 ```yaml
 remote_transmitter:
   id: ir_tx
