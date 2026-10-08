@@ -25,7 +25,7 @@ The carrier frequency is sent with each command, so the transmitter doesn't need
 
 ## Installation
 
-HACS → three-dot menu → Custom repositories → add this repository as type Integration. Install, restart, then add **Beo4 Infrared** under Settings → Devices & services and pick the emitter.
+HACS → three-dot menu → Custom repositories → add this repository (https://github.com/cklit/ha-beo4-infrared) as type Integration. Install, restart, then add **Beo4 Infrared** under Settings → Devices & services and pick the emitter.
 
 ## Entities
 
