@@ -21,7 +21,7 @@ from .const import CONF_INFRARED_ENTITY_ID, DOMAIN
 class Beo4ConfigFlow(ConfigFlow, domain=DOMAIN):
     """Handle a config flow for Beo4 Infrared."""
 
-    VERSION = 2
+    VERSION = 1
 
     async def async_step_user(
         self, user_input: dict[str, Any] | None = None

@@ -50,7 +50,7 @@ async def emitter(hass: HomeAssistant) -> MockEmitter:
 async def setup_entry(hass: HomeAssistant, emitter: MockEmitter) -> MockConfigEntry:
     """Set up the integration."""
     entry = MockConfigEntry(
-        domain=DOMAIN, version=2, title="Beo4", data={CONF_INFRARED_ENTITY_ID: EMITTER}
+        domain=DOMAIN, title="Beo4", data={CONF_INFRARED_ENTITY_ID: EMITTER}
     )
     entry.add_to_hass(hass)
     assert await hass.config_entries.async_setup(entry.entry_id)

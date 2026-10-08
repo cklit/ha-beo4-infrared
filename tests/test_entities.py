@@ -147,7 +147,7 @@ async def test_mode_restored(hass: HomeAssistant, emitter: MockEmitter) -> None:
     """Mode survives a restart."""
     mock_restore_cache(hass, [State(MODE, "video")])
     entry = MockConfigEntry(
-        domain=DOMAIN, version=2, title="Beo4", data={CONF_INFRARED_ENTITY_ID: EMITTER}
+        domain=DOMAIN, title="Beo4", data={CONF_INFRARED_ENTITY_ID: EMITTER}
     )
     entry.add_to_hass(hass)
     assert await hass.config_entries.async_setup(entry.entry_id)
@@ -165,55 +165,3 @@ async def test_emitter_unavailable(
     hass.states.async_set(EMITTER, STATE_UNAVAILABLE)
     await hass.async_block_till_done()
     assert hass.states.get("button.beo4_go").state == STATE_UNAVAILABLE
-
-
-async def test_migrate_from_0_1_0(
-    hass: HomeAssistant, emitter: MockEmitter, entity_registry: er.EntityRegistry
-) -> None:
-    """Old entities are removed, disabled ones re-enabled, old data dropped."""
-    entry = MockConfigEntry(
-        domain=DOMAIN,
-        version=1,
-        title="Beo4",
-        data={
-            CONF_INFRARED_ENTITY_ID: EMITTER,
-            "infrared_receiver_entity_id": "infrared.test_ir_receiver",
-            "default_source": "RADIO",
-        },
-    )
-    entry.add_to_hass(hass)
-
-    def reg(domain: str, suffix: str, **kwargs) -> str:
-        return entity_registry.async_get_or_create(
-            domain,
-            DOMAIN,
-            f"{entry.entry_id}_{suffix}",
-            config_entry=entry,
-            suggested_object_id=f"beo4_{suffix}",
-            **kwargs,
-        ).entity_id
-
-    old = [
-        reg("media_player", "media_player"),
-        reg("remote", "remote"),
-        reg("event", "received_command"),
-        reg("button", "menu"),
-        reg("button", "text"),
-        reg("button", "light", disabled_by=er.RegistryEntryDisabler.INTEGRATION),
-    ]
-    digit = reg("button", "digit_1", disabled_by=er.RegistryEntryDisabler.INTEGRATION)
-    user_off = reg("button", "red", disabled_by=er.RegistryEntryDisabler.USER)
-
-    assert await hass.config_entries.async_setup(entry.entry_id)
-    await hass.async_block_till_done()
-
-    assert entry.version == 2
-    assert entry.data == {CONF_INFRARED_ENTITY_ID: EMITTER}
-    for entity_id in old:
-        assert entity_registry.async_get(entity_id) is None
-    assert entity_registry.async_get(digit).disabled_by is None
-    assert hass.states.get(digit) is not None
-    # Something the user disabled stays disabled.
-    assert (
-        entity_registry.async_get(user_off).disabled_by is er.RegistryEntryDisabler.USER
-    )

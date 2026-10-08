@@ -30,7 +30,7 @@ async def test_create_entry(hass: HomeAssistant, emitter: MockEmitter) -> None:
 async def test_duplicate_emitter(hass: HomeAssistant, emitter: MockEmitter) -> None:
     """Same emitter twice aborts."""
     MockConfigEntry(
-        domain=DOMAIN, version=2, data={CONF_INFRARED_ENTITY_ID: EMITTER}
+        domain=DOMAIN, data={CONF_INFRARED_ENTITY_ID: EMITTER}
     ).add_to_hass(hass)
     result = await hass.config_entries.flow.async_init(
         DOMAIN, context={"source": SOURCE_USER}

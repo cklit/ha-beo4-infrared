@@ -7,7 +7,7 @@
     "step": {
       "user": {
         "title": "Set up Beo4 Infrared",
-        "description": "The emitter must be able to transmit a 455 kHz carrier, for example an ESPHome ir_rf_proxy on an ESP32.",
+        "description": "Beo4 uses a 455 kHz carrier instead of the usual 38 kHz, so the emitter must be able to transmit at that frequency. An ESPHome ir_rf_proxy on an ESP32 can, if the board's IR LED circuit is fast enough.",
         "data": {
           "name": "Name",
           "infrared_entity_id": "Infrared emitter"
