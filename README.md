@@ -1,8 +1,4 @@
-<p align="right">
-  <img src="https://raw.githubusercontent.com/cklit/ha-beo4-infrared/main/custom_components/beo4_infrared/brand/icon.png" alt="Beo4 Infrared icon" width="128">
-</p>
-
-# Beo4 Infrared for Home Assistant
+# Beo4 Infrared for Home Assistant <img src="https://raw.githubusercontent.com/cklit/ha-beo4-infrared/main/custom_components/beo4_infrared/brand/icon.png" alt="Beo4 Infrared icon" width="40" align="right">
 
 Sends Bang & Olufsen Beo4 IR commands through Home Assistant's infrared platform. Any emitter on that platform works as long as it can produce a 455 kHz carrier. This integration is vibe-coded, using the official LG Infrared integration as inspiration: https://github.com/home-assistant/core/tree/dev/homeassistant/components/lg_infrared
 
