@@ -5,8 +5,8 @@ Sends Bang & Olufsen Beo4 IR commands through Home Assistant's infrared platform
 ## Requirements
 
 - Home Assistant 2026.9 or later
-- An infrared emitter entity, for example ESPHome `ir_rf_proxy` on an ESP32. The ESP32's RMT peripheral generates 455 kHz fine.
-
+- An infrared emitter entity, for example ESPHome `ir_rf_proxy` on an ESP32.
+  
 ## Compatible devices
 
 Tested and working:
