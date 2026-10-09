@@ -1,4 +1,4 @@
-<img src="https://raw.githubusercontent.com/cklit/ha-beo4-infrared/main/custom_components/beo4_infrared/brand/icon.png" alt="Beo4 Infrared icon" width="128" align="right">
+<img src="https://raw.githubusercontent.com/cklit/ha-beo4-infrared/main/custom_components/beo4_infrared/brand/icon.png" alt="Beo4 Infrared icon" width="128">
 
 # Beo4 Infrared for Home Assistant
 
