@@ -39,7 +39,10 @@ The carrier frequency is sent with each command, so the transmitter doesn't need
 
 ## Installation
 
-HACS → three-dot menu → Custom repositories → add this repository (https://github.com/cklit/ha-beo4-infrared) as type Integration. Install, restart, then add **Beo4 Infrared** under Settings → Devices & services and pick the emitter.
+Via HACS (recommended). **Beo4 Infrared** is in the HACS default store, so there is no repository to add:
+
+In HACS, search for 'Beo4 Infrared' and click Download.
+Restart Home Assistant, then add it from Settings → Devices & Services → Add Integration → Beo4 Infrared.
 
 ## Entities
 
