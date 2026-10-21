@@ -8,6 +8,13 @@ Sends Bang & Olufsen Beo4 IR commands through Home Assistant's infrared platform
 
 - Home Assistant 2026.9 or later
 - An infrared emitter entity, for example ESPHome `ir_rf_proxy` on an ESP32.
+
+## Installation
+
+Via HACS (recommended). **Beo4 Infrared** is in the HACS default store, so there is no repository to add:
+
+In HACS, search for 'Beo4 Infrared' and click Download.
+Restart Home Assistant, then add it from Settings → Devices & Services → Add Integration → Beo4 Infrared.
   
 ## Compatible devices
 
@@ -36,13 +43,6 @@ infrared:
 ```
 
 The carrier frequency is sent with each command, so the transmitter doesn't need any 455 kHz setting and can still be used for 38 kHz devices.
-
-## Installation
-
-Via HACS (recommended). **Beo4 Infrared** is in the HACS default store, so there is no repository to add:
-
-In HACS, search for 'Beo4 Infrared' and click Download.
-Restart Home Assistant, then add it from Settings → Devices & Services → Add Integration → Beo4 Infrared.
 
 ## Entities
 
