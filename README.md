@@ -58,6 +58,9 @@ The carrier frequency is sent with each command, so the transmitter doesn't need
 | V.Aux2 | Video 0x00 | 0x8D |
 | Camera | Video 0x00 | 0x87 |
 | PC | Video 0x00 | 0x8B |
+| DTV2 / V.Aux | Video 0x00 | 0x82 |
+| Media | Video 0x00 | 0x84 |
+| Photo | Video 0x00 | 0x8E |
 | V.Mem | Video 0x00 | 0x85 |
 | Radio | Audio 0x01 | 0x81 |
 | CD | Audio 0x01 | 0x92 |
@@ -74,8 +77,10 @@ The carrier frequency is sent with each command, so the transmitter doesn't need
 | Mute | 0x0D |
 | Vol + / Vol - | 0x60 / 0x64 |
 | Go / Stop | 0x35 / 0x36 |
-| Up / Down | 0x1E / 0x1F |
-| Left / Right | 0x32 / 0x34 |
+| Up / Down | 0xCA / 0xCB |
+| Left / Right | 0xCC / 0xCD |
+| Step Up / Step Down | 0x1E / 0x1F |
+| Rewind / Wind | 0x32 / 0x34 |
 | Exit | 0x7F |
 | Red / Green / Yellow / Blue | 0xD9 / 0xD5 / 0xD4 / 0xD8 |
 | 0–9 | 0x00–0x09 |

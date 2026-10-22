@@ -35,6 +35,15 @@
       "pc": {
         "name": "PC"
       },
+      "dtv2": {
+        "name": "DTV2 / V.Aux"
+      },
+      "media": {
+        "name": "Media"
+      },
+      "photo": {
+        "name": "Photo"
+      },
       "v_mem": {
         "name": "V.Mem"
       },
@@ -85,6 +94,18 @@
       },
       "right": {
         "name": "Right"
+      },
+      "step_up": {
+        "name": "Step Up"
+      },
+      "step_dw": {
+        "name": "Step Down"
+      },
+      "rewind": {
+        "name": "Rewind"
+      },
+      "wind": {
+        "name": "Wind"
       },
       "exit": {
         "name": "Exit"
