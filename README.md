@@ -11,10 +11,9 @@ Sends Bang & Olufsen Beo4 IR commands through Home Assistant's infrared platform
 
 ## Installation
 
-Via HACS (recommended). **Beo4 Infrared** is in the HACS default store, so there is no repository to add:
+Via Home Assistant Marketplace (HA 2026.11>). Search for **Beo4 Infrared** and click Download.
 
-In HACS, search for 'Beo4 Infrared' and click Download.
-Restart Home Assistant, then add it from Settings → Devices & Services → Add Integration → Beo4 Infrared.
+Then add it from Settings → Devices & Services → Add Integration → Beo4 Infrared.
   
 ## Compatible devices
 
